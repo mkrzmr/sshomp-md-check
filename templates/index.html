@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSHOMP Metadata Validator</title>
+</head>
+<body>
+    <h1>SSHOMP Metadata Validator</h1>
+    <p><b>Tools and Services PIDs only! Other item types will be added.</b></br>
+    This tool checks the available metadata for an item in the SSHOMP against the list of recommended metadata and shows a table with the results. </br>
+    This tool is meant for MP users who want to improve the quality of their entries, and MP curators who quickly want to check the metadata completeness of an item. </br>
+    No data is logged or written back to the Marketplace. Users can export the results for convinience.
+    </p>
+<form method="POST" action="/">
+    <label for="persID">Enter persID:</label>
+    <input type="text" name="persID" id="persID" required>
+
+    <label for="itemType">Select Item Type:</label>
+    <select name="itemType" id="itemType" required>
+        <option value="tools-services">Tools/Services</option>
+        <option value="training-materials">Training Material</option>
+        <option value="publications">Publication</option>
+        <option value="datasets">Dataset</option>
+        <option value="workflows">Workflow</option>
+    </select>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

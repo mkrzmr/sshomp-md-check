@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Validation Results</title>
+    <style>
+        .body {
+            padding: 10%;
+            }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table, .th, .td {
+            border: 1px solid black;
+        }
+        .th, .td {
+            padding: 10px;
+            text-align: left;
+        }
+        .valid {
+            background-color: #d4edda;
+        }
+        .invalid {
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <h1>Metadata Validation Results for {{ tool_name }}</h1>
+
+    <h2>Overall Metadata Score: {{ overall_score }}%</h2>
+
+    <h3>Category Scores:</h3>
+    <ul>
+        {% for category, score in category_scores.items() %}
+        <li>{{ category }}: {{ score }}%</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Results Table:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Field</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category, fields in results.items() %}
+            <tr><td colspan="3"><strong>{{ category }}</strong></td></tr>
+            {% for field, status in fields.items() %}
+            <tr>
+                <td></td>
+                <td>{{ field }}</td>
+                <td class="{{ 'valid' if status else 'invalid' }}">{{ 'Available' if status else 'Missing' }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Suggested Actions:</h3>
+    <ul>
+        {% for suggestion in suggestions %}
+        <li>{{ suggestion }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Export Button -->
+    <form action="/export" method="POST">
+        <input type="hidden" name="tool_name" value="{{ tool_name }}">
+        <input type="hidden" name="results" value="{{ results }}">
+        <input type="hidden" name="suggestions" value="{{ suggestions }}">
+        <input type="hidden" name="overall_score" value="{{ overall_score }}">
+        <button type="submit">Export as .txt</button>
+    </form>
+
+    <a href="/">Go Back</a>
+</body>
+</html>
